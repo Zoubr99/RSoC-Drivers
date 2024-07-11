@@ -47,7 +47,7 @@ class UartCore {
 
         // first method is as always the condt and destruct.
         UartCore(uint32_t core_base_addr);
-        UartCore();
+        ~UartCore();
 
 
         //******[baud rate method]******// 
@@ -74,7 +74,7 @@ class UartCore {
 
         //******[function to read the received bytes from the receiver buffer]******//
         // **** REG 0 ***//
-        void rx_byte(uint8_t byte);
+        int rx_byte();
 
 
         // below are funtions to help the end user (application dev to easily display chars on the terminal)

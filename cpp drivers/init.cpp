@@ -8,6 +8,7 @@
  *********************************************************************/
 
 TimerCore _sys_timer(get_slot_addr(BRIDGE_BASE, TIMER_SLOT));
+UartCore uart(get_slot_addr(BRIDGE_BASE, UART_SLOT));
 
 // current system time in microsecond
 unsigned long now_us() 

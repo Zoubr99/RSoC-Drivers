@@ -52,7 +52,7 @@ GpiCore::GpiCore (uint32_t core_base_addr){
 
 GpiCore::~GpiCore(){};
 
-void GpiCore::read(){
+uint32_t GpiCore::read(){
           //io_read(base_addr, offset)          ( *(volatile uint32_t *) ( (base_addr) + 4 * (offset) ) )
     return (io_read(base_addr, DATA_REG));
 

@@ -1,6 +1,7 @@
 #ifndef _GPIO_H_INCLUDED
 #define _GPIO_H_INCLUDED
 
+#include "init.h"
 // header file for gpio class defenition
 
 // first GpoCore
@@ -55,6 +56,7 @@ class GpiCore
         //methods
         uint32_t read(); // read a 32 bit word
         int read(int bit_pos);
+
 
 
 
