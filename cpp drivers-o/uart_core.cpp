@@ -22,12 +22,23 @@ void UartCore::set_baud_rate(int baud) // baud -> dvsr -> io_write
 {
     uint32_t dvsr; 
     dvsr = SYS_CLK_FREQ*1000000 / 16 / baud - 1; // to calculate the dvsr to be written onto the dvsr reg
+
+    //chatgpt:
+    //dvsr = ((SYS_CLK_FREQ << 20) >> 4) / baud - 1;
+
+    //mine:
+    /*
+    int n = SYS_CLK_FREQ;
+    int multiplyby1M = ((n << 19) + (n << 18) + (n << 17) + (n << 14) + (n << 13) + (n << 9) + (n << 5));
+    int divideby16 = (multiplyby1M >> 4 )
+    */
+
     io_write(base_addr, DVSR_REG, dvsr); // the macro to write to the dvsr reg
 }
 
 
 // receiver fifo empty check
-int UartCore::rx_fifo_empty()
+void UartCore::rx_fifo_empty() 
 {
     uint32_t rd_word;
     int empty;
@@ -39,7 +50,7 @@ int UartCore::rx_fifo_empty()
 
 
 // transmitter fifo full check
-int UartCore::tx_fifo_full ()
+void UartCore::tx_fifo_full () 
 {   
     uint32_t rd_word;
     int full;
@@ -54,7 +65,7 @@ int UartCore::tx_fifo_full ()
 void UartCore::tx_byte(uint8_t byte)
 {
     // fifo busy loop
-    while(tx_fifo_full()){};
+    while(tx_fifo_full){};
     io_write(base_addr, WRR_DATA_REG, (uint32_t) byte);
 }
 
@@ -187,7 +198,7 @@ int UartCore::rx_byte()
             disp(f, 3);
         }
 
-        void UartCore::disp_str(const char *str)
+        void UartCore::disp(const char *str)
         {
             while((uint8_t) *str)
             {
